@@ -24,8 +24,8 @@ from botocore.exceptions import ProfileNotFound
 
 import click
 
-from ..config import find_instances, SSOInstance
-from ..config_file_writer import write_values
+from ..aws_sso_lib.config import find_instances, SSOInstance
+from ..aws_sso_lib.config_file_writer import write_values
 from .utils import configure_logging, get_instance, GetInstanceError
 
 LOGGER = logging.getLogger(__name__)

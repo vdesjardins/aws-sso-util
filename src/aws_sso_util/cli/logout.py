@@ -21,8 +21,8 @@ import os
 import botocore
 from botocore.exceptions import ClientError
 
-from ..sso import SSO_TOKEN_DIR
-from ..sso import CREDENTIALS_CACHE_DIR as AWS_CREDS_CACHE_DIR
+from ..aws_sso_lib.sso import SSO_TOKEN_DIR
+from ..aws_sso_lib.sso import CREDENTIALS_CACHE_DIR as AWS_CREDS_CACHE_DIR
 
 from .utils import configure_logging
 

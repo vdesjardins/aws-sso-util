@@ -19,7 +19,7 @@ from collections import OrderedDict, namedtuple
 from .config import Config
 from . import utils
 from . import cfn_yaml_tags
-from ..assignments import Assignment as _Assignment
+from ..aws_sso_lib.assignments import Assignment as _Assignment
 
 LOGGER = logging.getLogger(__name__)
 

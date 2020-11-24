@@ -21,9 +21,9 @@ import click
 
 import aws_error_utils
 
-from ..config import find_instances, SSOInstance
-from ..sso import get_token_fetcher
-from ..vendored_botocore.exceptions import PendingAuthorizationExpiredError
+from ..aws_sso_lib.config import find_instances, SSOInstance
+from ..aws_sso_lib.sso import get_token_fetcher
+from ..aws_sso_lib.exceptions import PendingAuthorizationExpiredError
 from .utils import configure_logging
 
 LOGGER = logging.getLogger(__name__)

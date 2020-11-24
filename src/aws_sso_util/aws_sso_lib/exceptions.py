@@ -13,6 +13,13 @@
 
 import collections
 
+from .vendored_botocore.exceptions import (
+    SSOError,
+    PendingAuthorizationExpiredError,
+    SSOTokenLoadError,
+    UnauthorizedSSOTokenError,
+)
+
 class InvalidSSOConfigError(Exception):
     pass
 

@@ -23,9 +23,9 @@ import aws_error_utils
 
 import click
 
-from .. import lookup
-from .. import format as _format
-from ..assignments import Assignment
+from ..aws_sso_lib import lookup
+from ..aws_sso_lib import format as _format
+from ..aws_sso_lib.assignments import Assignment
 from ..cfn.config import Config, ConfigError, validate_config, GenerationConfig
 from ..cfn import resources, templates, macro
 from ..cfn import utils as cfn_utils

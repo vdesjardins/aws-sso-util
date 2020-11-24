@@ -16,8 +16,8 @@ import logging
 import math
 
 from . import utils, cfn_yaml_tags
-from .. import lookup
-from ..format import format_account_id
+from ..aws_sso_lib import lookup
+from ..aws_sso_lib.format import format_account_id
 
 LOGGER = logging.getLogger(__name__)
 

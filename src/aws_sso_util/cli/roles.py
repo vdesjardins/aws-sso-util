@@ -6,7 +6,7 @@ from collections import namedtuple
 import click
 
 from .utils import configure_logging, get_instance, GetInstanceError, Printer
-from ..sso import list_available_roles, login
+from ..aws_sso_lib.sso import list_available_roles, login
 
 LOGGER = logging.getLogger(__name__)
 
