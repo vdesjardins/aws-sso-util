@@ -21,8 +21,8 @@ import yaml
 from . import cfn_yaml_tags
 cfn_yaml_tags.mark_safe()
 
-from ..aws_sso_lib import lookup
-from ..aws_sso_lib import format as _format
+from aws_sso_lib import lookup
+from aws_sso_lib import format as _format
 
 def to_ordered_dict(obj):
     if isinstance(obj, dict):

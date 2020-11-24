@@ -27,9 +27,10 @@ from botocore.exceptions import ClientError, ProfileNotFound
 
 import click
 
-from .aws_sso_lib.sso import get_token_fetcher
-from .aws_sso_lib.config import find_instances, SSOInstance
-from .aws_sso_lib.config_file_writer import ConfigFileWriter, write_values, get_config_filename
+from aws_sso_lib.sso import get_token_fetcher
+from aws_sso_lib.config import find_instances, SSOInstance
+from aws_sso_lib.config_file_writer import ConfigFileWriter, write_values, get_config_filename
+
 from .utils import configure_logging, get_instance, GetInstanceError
 
 from .configure_profile import (

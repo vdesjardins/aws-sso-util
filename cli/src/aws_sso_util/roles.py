@@ -5,8 +5,9 @@ from collections import namedtuple
 
 import click
 
+from aws_sso_lib.sso import list_available_roles, login
+
 from .utils import configure_logging, get_instance, GetInstanceError, Printer
-from .aws_sso_lib.sso import list_available_roles, login
 
 LOGGER = logging.getLogger(__name__)
 

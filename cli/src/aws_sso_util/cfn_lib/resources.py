@@ -16,10 +16,11 @@ import logging
 import hashlib
 from collections import OrderedDict, namedtuple
 
+from aws_sso_lib.assignments import Assignment as _Assignment
+
 from .config import Config
 from . import utils
 from . import cfn_yaml_tags
-from ..aws_sso_lib.assignments import Assignment as _Assignment
 
 LOGGER = logging.getLogger(__name__)
 

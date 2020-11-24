@@ -14,7 +14,7 @@
 import logging
 import logging.handlers
 
-from .aws_sso_lib.config import find_instances, SSOInstance
+from aws_sso_lib.config import find_instances, SSOInstance
 
 def configure_logging(logger, verbose, **config_args):
     if verbose in [False, None]:

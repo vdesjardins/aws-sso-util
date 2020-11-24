@@ -20,8 +20,9 @@ import aws_error_utils
 
 import click
 
-from .aws_sso_lib.lookup import Ids
-from .aws_sso_lib.assignments import _list_assignments, Assignment
+from aws_sso_lib.lookup import Ids
+from aws_sso_lib.assignments import _list_assignments, Assignment
+
 from .utils import configure_logging
 
 LOGGER = logging.getLogger(__name__)

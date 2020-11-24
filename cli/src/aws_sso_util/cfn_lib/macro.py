@@ -21,9 +21,10 @@ from collections import namedtuple
 
 import boto3
 
+from aws_sso_lib import lookup
+
 from .config import Config, validate_resource, GenerationConfig
 from . import resources, templates, utils, cfn_yaml_tags
-from ..aws_sso_lib import lookup
 
 """
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html

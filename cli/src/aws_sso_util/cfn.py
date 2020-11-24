@@ -23,9 +23,10 @@ import aws_error_utils
 
 import click
 
-from .aws_sso_lib import lookup
-from .aws_sso_lib import format as _format
-from .aws_sso_lib.assignments import Assignment
+from aws_sso_lib import lookup
+from aws_sso_lib import format as _format
+from aws_sso_lib.assignments import Assignment
+
 from .cfn_lib.config import Config, ConfigError, validate_config, GenerationConfig
 from .cfn_lib import resources, templates, macro
 from .cfn_lib import utils as cfn_utils

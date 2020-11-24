@@ -15,9 +15,10 @@ import jsonschema
 import logging
 import math
 
+from aws_sso_lib import lookup
+from aws_sso_lib.format import format_account_id
+
 from . import utils, cfn_yaml_tags
-from ..aws_sso_lib import lookup
-from ..aws_sso_lib.format import format_account_id
 
 LOGGER = logging.getLogger(__name__)
 
