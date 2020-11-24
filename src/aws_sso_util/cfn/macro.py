@@ -269,7 +269,7 @@ def handler(event, context, put_object=None):
             content = utils.dump_yaml(child_template)
         else:
             child_template = cfn_yaml_tags.to_json(child_template)
-            content = json.dumps(child_template)
+            content = json.dumps(child_template, indent=2)
 
         put_object_args = copy.deepcopy(S3_PUT_OBJECT_ARGS)
 

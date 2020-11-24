@@ -76,11 +76,12 @@ def param_loader(ctx, param, value):
 
 @click.option("--lookup-names/--no-lookup-names", default=False)
 
+@click.option("--num-child-stacks", type=int)
+@click.option("--max-assignments-allocation", type=int)
+@click.option("--default-session-duration")
+
 @click.option("--max-resources-per-template", type=int)
 @click.option("--max-concurrent-assignments", type=int)
-@click.option("--max-assignments-allocation", type=int)
-@click.option("--num-child-stacks", type=int)
-@click.option("--default-session-duration")
 
 @click.option("--assignments-csv", type=click.File("w"))
 @click.option("--assignments-csv-only", is_flag=True)
@@ -96,11 +97,11 @@ def generate_template(
         base_template_file,
         template_parameters,
         lookup_names,
+        num_child_stacks,
+        max_assignments_allocation,
+        default_session_duration,
         max_resources_per_template,
         max_concurrent_assignments,
-        max_assignments_allocation,
-        num_child_stacks,
-        default_session_duration,
         assignments_csv,
         assignments_csv_only,
         verbose):
