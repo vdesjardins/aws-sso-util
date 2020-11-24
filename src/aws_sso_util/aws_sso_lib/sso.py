@@ -46,7 +46,8 @@ CREDENTIALS_CACHE_DIR = os.path.expanduser(
 LOGGER = logging.getLogger(__name__)
 
 def get_token_fetcher(session, sso_region, interactive=False, token_cache=None,
-                     on_pending_authorization=None, message=None, outfile=None):
+                     on_pending_authorization=None, message=None, outfile=None,
+                     disable_browser=None):
     if hasattr(session, "_session"): #boto3 Session
         session = session._session
 
@@ -58,6 +59,7 @@ def get_token_fetcher(session, sso_region, interactive=False, token_cache=None,
             on_pending_authorization = OpenBrowserHandler(
                 outfile=outfile,
                 message=message,
+                disable_browser=disable_browser,
             )
         else:
             on_pending_authorization = non_interactive_auth_raiser

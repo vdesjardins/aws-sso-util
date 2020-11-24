@@ -22,8 +22,8 @@ from botocore.credentials import JSONFileCache
 
 import click
 
-from ..aws_sso_lib import lookup as _lookup
-from ..aws_sso_lib import format as _format
+from .aws_sso_lib import lookup as _lookup
+from .aws_sso_lib import format as _format
 from .utils import configure_logging, Printer
 
 LOGGER = logging.getLogger(__name__)

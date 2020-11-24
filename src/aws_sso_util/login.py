@@ -16,14 +16,16 @@ import sys
 import logging
 
 import botocore
+from dateutil.parser import parse
+from dateutil.tz import tzlocal, tzutc
 
 import click
 
 import aws_error_utils
 
-from ..aws_sso_lib.config import find_instances, SSOInstance
-from ..aws_sso_lib.sso import get_token_fetcher
-from ..aws_sso_lib.exceptions import PendingAuthorizationExpiredError
+from .aws_sso_lib.config import find_instances, SSOInstance
+from .aws_sso_lib.sso import get_token_fetcher
+from .aws_sso_lib.exceptions import PendingAuthorizationExpiredError
 from .utils import configure_logging
 
 LOGGER = logging.getLogger(__name__)
@@ -33,12 +35,16 @@ DEFAULT_SSO_REGION_VARS = ["AWS_SSO_LOGIN_DEFAULT_SSO_REGION"]
 
 LOGIN_ALL_VAR = "AWS_SSO_LOGIN_ALL"
 
+UTC_TIME_FORMAT = "%Y-%m-%d %H:%M UTC"
+LOCAL_TIME_FORMAT = "%Y-%m-%d %H:%M %Z"
+
 @click.command()
 @click.argument("sso_start_url", required=False)
 @click.argument("sso_region", required=False)
 @click.option("--profile")
 @click.option("--all", "login_all", is_flag=True, default=None)
 @click.option("--force", is_flag=True)
+@click.option("--headless", is_flag=True, help="Never open a browser window", default=None)
 @click.option("--verbose", "-v", count=True)
 def login(
         sso_start_url,
@@ -46,6 +52,7 @@ def login(
         profile,
         login_all,
         force,
+        headless,
         verbose):
 
     if login_all is None:
@@ -84,7 +91,7 @@ def login(
     regions = [i.region for i in instances]
     token_fetchers = {}
     for region in regions:
-        token_fetchers[region] = get_token_fetcher(session, region, interactive=True)
+        token_fetchers[region] = get_token_fetcher(session, region, interactive=True, disable_browser=headless)
 
     if len(instances) > 1:
         print(f"Logging in {len(instances)} AWS SSO instances")
@@ -94,7 +101,15 @@ def login(
         try:
             token = token_fetcher.fetch_token(instance.start_url, force_refresh=force)
             LOGGER.debug(f"Token: {token}")
-            print(f"Login succeeded, valid until {token['expiresAt']}")
+            expiration = parse(token['expiresAt']).astimezone(tzutc())
+            expiration_str = expiration.strftime(UTC_TIME_FORMAT)
+            try:
+                local_expiration = expiration.astimezone(tzlocal())
+                expiration_str = local_expiration.strftime(LOCAL_TIME_FORMAT)
+                # TODO: locale-friendly string
+            except:
+                pass
+            print(f"Login succeeded, valid until {expiration_str}")
         except PendingAuthorizationExpiredError:
             print(f"Login window expired", file=sys.stderr)
             sys.exit(2)

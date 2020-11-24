@@ -18,7 +18,7 @@ import webbrowser
 
 from .exceptions import AuthenticationNeededError, AuthDispatchError
 
-DEFAULT_MESSAGE = textwrap.dedent("""\
+DEFAULT_BROWSER_MESSAGE = textwrap.dedent("""\
 AWS SSO login required.
 Attempting to open the SSO authorization page in your default browser.
 If the browser does not open or you wish to use a different device to
@@ -31,8 +31,19 @@ Then enter the code:
 {code}
 """)
 
+DEFAULT_NO_BROWSER_MESSAGE = textwrap.dedent("""\
+AWS SSO login required.
+Open the following URL in a browser:
+
+{url}
+
+Then enter the code:
+
+{code}
+""")
+
 class OpenBrowserHandler(object):
-    def __init__(self, outfile=None, open_browser=None, message=None):
+    def __init__(self, outfile=None, open_browser=None, disable_browser=None, message=None):
         if outfile is None:
             outfile = sys.stderr
         self._outfile = outfile
@@ -41,8 +52,15 @@ class OpenBrowserHandler(object):
             open_browser = webbrowser.open_new_tab
         self._open_browser = open_browser
 
+        if disable_browser is None:
+            disable_browser = os.environ.get('AWS_SSO_DISABLE_BROWSER', '').lower() in ['1', 'true']
+        self._disable_browser = disable_browser
+
         if not message:
-            message = DEFAULT_MESSAGE
+            if self._disable_browser:
+                message = DEFAULT_NO_BROWSER_MESSAGE
+            else:
+                message = DEFAULT_BROWSER_MESSAGE
         self._message = message
 
     def __call__(self, userCode, verificationUri,
@@ -57,8 +75,7 @@ class OpenBrowserHandler(object):
         if self._outfile:
             print(message, file=self._outfile)
 
-        disable_browser = os.environ.get('AWS_SSO_DISABLE_BROWSER', '').lower() in ['1', 'true']
-        if self._open_browser and not disable_browser:
+        if self._open_browser and not self._disable_browser:
             try:
                 return self._open_browser(verificationUriComplete)
             except AuthenticationNeededError:

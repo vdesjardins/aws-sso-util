@@ -13,7 +13,7 @@
 
 import click
 
-from .. import __version__
+from . import __version__
 
 from .assignments import assignments
 from .cfn import generate_template
