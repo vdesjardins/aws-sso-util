@@ -23,6 +23,7 @@ import datetime
 import uuid
 import numbers
 import typing
+import json
 
 import boto3
 import botocore
@@ -47,6 +48,14 @@ CREDENTIALS_CACHE_DIR = os.path.expanduser(
 LOGGER = logging.getLogger(__name__)
 
 __all__ = ["get_boto3_session", "login", "list_available_accounts", "list_available_roles"]
+
+def _serialize_utc_timestamp(obj):
+    if isinstance(obj, datetime.datetime):
+        return obj.strftime('%Y-%m-%dT%H:%M:%SZ')
+    return obj
+
+def _sso_json_dumps(obj):
+    return json.dumps(obj, default=_serialize_utc_timestamp)
 
 def get_token_fetcher(session, sso_region, *, interactive=False, sso_cache=None,
                      on_pending_authorization=None, message=None, outfile=None,

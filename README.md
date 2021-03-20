@@ -87,6 +87,14 @@ But the whole point of AWS SSO is that you log in once for *many* accounts and r
 You could have a particular account and role set up in your default profile, but I prefer not to have a default profile so that I'm always explicitly selecting a profile and never accidentally end up in the default by mistake.
 `aws-sso-util login` solves this problem by letting you *just log in* without having to think about where you'll be using those credentials.
 
+## Debugging issues
+
+Read the full docs for `aws-sso-util check` [here](docs/check.md).
+
+`aws-sso-util check` helps diagnose configuration and access issues.
+It can be used to help administrators debug user issues, or as validation in shell scripting.
+It validates that `aws-sso-util` can find an AWS SSO instance configuration, and additionally whether the user has access to a particular account and/or role.
+
 ## Adding AWS SSO support to AWS SDKs
 
 The credential process is added automatically (by default) by the `aws-sso-util configure` commands; you only need to read this section if you're not using that or want to understand it more fully.
