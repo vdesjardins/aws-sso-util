@@ -36,8 +36,8 @@ from aws_sso_lib.compat import shell_quote, shell_join
 from .utils import configure_logging, get_instance, GetInstanceError
 
 from .configure_profile import (
-    DEFAULT_START_URL_VARS,
-    DEFAULT_SSO_REGION_VARS,
+    CONFIGURE_DEFAULT_START_URL_VARS,
+    CONFIGURE_DEFAULT_SSO_REGION_VARS,
     DEFAULT_REGION_VARS,
     DISABLE_CREDENTIAL_PROCESS_VAR,
     CREDENTIAL_PROCESS_NAME_VAR,
@@ -207,8 +207,8 @@ def populate_profiles(
         instance = get_instance(
             sso_start_url,
             sso_region,
-            sso_start_url_vars=DEFAULT_START_URL_VARS,
-            sso_region_vars=DEFAULT_SSO_REGION_VARS,)
+            sso_start_url_vars=CONFIGURE_DEFAULT_START_URL_VARS,
+            sso_region_vars=CONFIGURE_DEFAULT_SSO_REGION_VARS,)
     except GetInstanceError as e:
         LOGGER.fatal(str(e))
         sys.exit(1)

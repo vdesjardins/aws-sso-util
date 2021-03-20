@@ -43,7 +43,6 @@ def roles(
     or in the environment variables AWS_DEFAULT_SSO_START_URL and AWS_DEFAULT_SSO_REGION.
 
     You can filter the list by providing account IDs and role name patterns.
-
     """
 
     configure_logging(LOGGER, verbose)
